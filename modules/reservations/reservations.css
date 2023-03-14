@@ -1,0 +1,34 @@
+/* Reservas */
+.error-text {
+    color: #C64E52;
+}
+
+.navbar {
+    padding: 20px;
+}
+
+th i {
+    float: right;
+}
+
+.form-group {
+    margin-top: 10px;
+}
+
+td {
+    border: 1px solid lightgray;
+}
+
+.reservado {
+    background-color: coral !important;
+}
+
+.disponible {
+    background-color: white !important;
+    cursor: pointer;
+}
+
+.seleccionado {
+    background-color: lightgreen !important;
+    cursor: pointer;
+}
