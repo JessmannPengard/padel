@@ -18,10 +18,10 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `paddle`
+-- Base de datos: `padelPro`
 --
-CREATE DATABASE IF NOT EXISTS `paddle` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci;
-USE `paddle`;
+CREATE DATABASE IF NOT EXISTS `padelPro` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci;
+USE `padelPro`;
 
 -- --------------------------------------------------------
 

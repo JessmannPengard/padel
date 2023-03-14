@@ -1,0 +1,33 @@
+/* Fuentes */
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@100&display=swap');
+
+/* Body */
+body {
+    background-color: black !important;
+}
+
+/* Enlaces de correo */
+.mail {
+    color: #BF9A84;
+    margin-right: 10px;
+}
+
+.mail:hover {
+    text-decoration: none;
+    opacity: .8;
+    color: red;
+    transition: 0.7s;
+}
+
+/* Titulo de las secciones */
+.section-title {
+    color: red;
+    font-family: 'Kanit', sans-serif;
+}
+
+/* Formato de párrafos */
+p {
+    color: #F2F2F2;
+    font-family: 'Kanit', sans-serif;
+    text-align: center;
+}

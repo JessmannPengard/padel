@@ -1,5 +1,5 @@
 <?php
 
-define("SITE_TITLE", "Paddle PRO");
+define("SITE_TITLE", "PADEL PRO");
 
 ?>

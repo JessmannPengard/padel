@@ -4,7 +4,19 @@
 }
 
 .navbar {
-    padding: 20px;
+    background-color: #1E1D1B;
+    opacity: 0.9;
+    height: 80px;
+    justify-content: center;
+    margin-bottom: 40px;
+}
+
+#logo {
+    height: 60px;
+}
+
+th {
+    color: white;
 }
 
 th i {
@@ -31,4 +43,12 @@ td {
 .seleccionado {
     background-color: lightgreen !important;
     cursor: pointer;
+}
+
+.form-label {
+    color: white;
+}
+
+small {
+    color: white;
 }

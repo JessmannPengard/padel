@@ -45,6 +45,7 @@ if (isset($_POST["id_pista"]) && isset($_POST["fecha"]) && isset($_POST["horas"]
     <link rel="stylesheet" href="../../vendor/css/bootstrap.min.css">
     <script src="../../vendor/js/bootstrap.bundle.min.js"></script>
     <!-- Mis estilos -->
+    <link rel="stylesheet" href="../../css/style.css">
     <link rel="stylesheet" href="reservations.css">
     <!-- Mi script -->
     <script src="reservations.js"></script>
@@ -62,9 +63,9 @@ if (isset($_POST["id_pista"]) && isset($_POST["fecha"]) && isset($_POST["horas"]
         <nav class="navbar navbar-expand-xxxl">
             <!-- Logo -->
             <div class="d-flex">
-                <p>
-                    <?= SITE_TITLE ?>
-                </p>
+                <a class="navbar-brand" href="../../index.php">
+                    <img src="../../img/logo.jpg" alt="logo" id="logo">
+                </a>
             </div>
         </nav>
     </header>
@@ -82,7 +83,8 @@ if (isset($_POST["id_pista"]) && isset($_POST["fecha"]) && isset($_POST["horas"]
                             <label for="id_pista" class="form-label"><i
                                     class="fa-solid fa-table-tennis-paddle-ball"></i>
                                 Pista</label>
-                            <select class="form-select" aria-label="Selección de pista" name="id_pista" id="id_pista" autofocus>
+                            <select class="form-select" aria-label="Selección de pista" name="id_pista" id="id_pista"
+                                autofocus>
                                 <?php
                                 // Llenamos el select con las pistas de la base de datos
                                 $db = new Database;
@@ -107,7 +109,7 @@ if (isset($_POST["id_pista"]) && isset($_POST["fecha"]) && isset($_POST["horas"]
                             ?>
                             <input type="date" class="form-control" name="fecha" id="fecha" required
                                 value="<?= date("Y-m-d"); ?>" min="<?= date("Y-m-d"); ?>" max="<?= $fecha_maxima ?>">
-                            <small>Las reservas sólo se podrán realizar con un máximo de dos semanas de
+                            <small>Las reservas se podrán realizar con un máximo de dos semanas de
                                 antelación</small>
                         </div>
                         <table class="table">

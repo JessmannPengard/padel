@@ -1,0 +1,16 @@
+/* Overlay del mapa */
+.google-wrapper {
+    position: relative;
+}
+
+#google-map-overlay {
+    width: 100%;
+    height: 100%;
+    background: black;
+    position: absolute;
+    opacity: 0.5;
+    top: 0px;
+    left: 0px;
+    z-index: 99;
+    pointer-events: none;
+}

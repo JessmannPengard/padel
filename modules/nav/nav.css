@@ -1,0 +1,57 @@
+/* Barra de menú */
+.navbar {
+    background-color: #1E1D1B;
+    opacity: 0.9;
+    height: 80px;
+}
+
+#navbarNav {
+    justify-content: space-around;
+}
+
+#logo {
+    height: 60px;
+}
+
+/*.navbar a {
+    font-family: 'Creepster', cursive;
+}*/
+
+.nav-link.active {
+    color: #BF9A84 !important;
+}
+
+.navbar-toggler-icon {
+    color: red !important;
+}
+
+@media (max-width: 575px) {
+    #navbarNav {
+        justify-content: left;
+        background-color: #1E1D1B;
+        padding-left: 20px;
+    }
+}
+
+/* Botón de scroll al inicio de página */
+#scroll-top-button {
+    display: none;
+    position: fixed;
+    bottom: 40px;
+    right: 20px;
+    transform: translateX(-50%);
+    z-index: 9999;
+    background-color: rgba(173, 117, 117, 0.5);
+    color: #F2F2F2;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    border-radius: 50%;
+}
+
+#scroll-top-button:hover {
+    background-color: rgba(0, 0, 0, 0.7);
+    color: red;
+    transition: 0.7s;
+}

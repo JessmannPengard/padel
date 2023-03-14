@@ -1,0 +1,52 @@
+/* Carrusel de imágenes */
+#carrusel {
+    margin-top: 80px;
+}
+
+.carousel-item::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    /* Oscurecido de imágenes del carrusel */
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.carousel-indicators li {
+    background-color: #C64E52 !important;
+    border: none;
+    border-radius: 50%;
+    width: 10px;
+    height: 10px;
+    margin: 0 5px;
+    /* Establece el tipo de viñeta a ninguno */
+    list-style: none;
+}
+
+/* Imagen del logotipo */
+.img-logo {
+    max-width: 25% !important;
+    z-index: 10;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Texto sobre la imagen */
+.txt-logo {
+    z-index: 10;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: antiquewhite;
+    font-size: 50px;
+}
+
+/* Texto sobre la imagen para pantallas pequeñas */
+@media (max-width: 768px) {
+    .txt-logo {
+      font-size: 30px;
+    }
+  }
