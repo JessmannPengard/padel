@@ -24,7 +24,7 @@ if (isset($_POST["num_socio"])) {
         // Guardamos la variable de sesión
         $_SESSION["num_socio"] = $num_socio;
         // Redirigimos a la página de inicio
-        header("Location: ../../index.php");
+        header("Location: ../../modules/reservations/reservations.php");
     } else {
         // Login incorrecto, guardamos el mensaje de error a mostrar más abajo
         $msg = "Usuario y/o contraseña incorrectos.";

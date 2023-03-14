@@ -15,6 +15,11 @@
     height: 60px;
 }
 
+thead,
+tbody {
+    border-style: hidden;
+}
+
 th {
     color: white;
 }
@@ -28,15 +33,26 @@ th i {
 }
 
 td {
-    border: 1px solid lightgray;
+    border: 1px solid black;
+    font-size: small;
+    padding: 10px 3px !important;
+}
+
+td a {
+    text-decoration: none;
 }
 
 .reservado {
-    background-color: coral !important;
+    background-color: red !important;
 }
 
 .disponible {
     background-color: white !important;
+    cursor: pointer;
+}
+
+.incompleto {
+    background-color: lightcoral !important;
     cursor: pointer;
 }
 
@@ -50,5 +66,39 @@ td {
 }
 
 small {
+    color: white;
+}
+
+#leyenda {
+    display: flex;
+    justify-content: space-between;
+}
+
+#cuadro-disponible {
+    background-color: white;
+    height: 20px;
+    width: 40px;
+}
+
+#cuadro-seleccionado {
+    background-color: lightgreen;
+    height: 20px;
+    width: 40px;
+}
+
+#cuadro-incompleto {
+    background-color: lightcoral;
+    height: 20px;
+    width: 40px;
+}
+
+#cuadro-completo {
+    background-color: red;
+    height: 20px;
+    width: 40px;
+}
+
+.modal-content {
+    background-color: #1E1D1B;
     color: white;
 }

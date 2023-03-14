@@ -6,6 +6,11 @@ require_once("reservations.places.model.php");
 require_once("reservations.hours.model.php");
 require_once("../user/user.model.php");
 
+session_start();
+if (!isset($_SESSION["num_socio"])) {
+    header("Location: ../../modules/user/user.login.php");
+}
+
 $msg = "";
 
 if (isset($_POST["id_pista"]) && isset($_POST["fecha"]) && isset($_POST["horas"])) {
@@ -13,17 +18,21 @@ if (isset($_POST["id_pista"]) && isset($_POST["fecha"]) && isset($_POST["horas"]
     if (count($horas) > 0) {
         $id_pista = $_POST["id_pista"];
         $fecha = $_POST["fecha"];
+        $j1 = $_POST["j1"];
+        $j2 = $_POST["j2"];
+        $j3 = $_POST["j3"];
+        $j4 = $_POST["j4"];
 
         $db = new Database;
         $usuario = new User($db->getConnection());
         $id_usuario = $usuario->getId($_SESSION["num_socio"]);
         $reservation = new Reservation($db->getConnection());
         foreach ($horas as $key => $value) {
-            $reservation->reservar($id_usuario, $id_pista, $value, $fecha);
+            $reservation->reservar($id_usuario, $id_pista, $value, $fecha, $j1, $j2, $j3, $j4);
             header("Location: reservations.php");
         }
     } else {
-        $msg = "No ha seleccionado ninguna hora";
+        $msg = "No ha seleccionado ninguna franja horaria";
     }
 }
 ?>
@@ -80,11 +89,9 @@ if (isset($_POST["id_pista"]) && isset($_POST["fecha"]) && isset($_POST["horas"]
                     <!-- Formulario de inicio de sesión -->
                     <form action="" method="post" id="formulario-reservas">
                         <div class="form-group">
-                            <label for="id_pista" class="form-label"><i
-                                    class="fa-solid fa-table-tennis-paddle-ball"></i>
+                            <label for="id_pista" class="form-label"><i class="fa-solid fa-table-tennis-paddle-ball"></i>
                                 Pista</label>
-                            <select class="form-select" aria-label="Selección de pista" name="id_pista" id="id_pista"
-                                autofocus>
+                            <select class="form-select" aria-label="Selección de pista" name="id_pista" id="id_pista" autofocus>
                                 <?php
                                 // Llenamos el select con las pistas de la base de datos
                                 $db = new Database;
@@ -107,55 +114,41 @@ if (isset($_POST["id_pista"]) && isset($_POST["fecha"]) && isset($_POST["horas"]
                             // Convertimos la fecha a formato ISO para el input type="date"
                             $fecha_maxima = $dos_semanas_despues->format('Y-m-d');
                             ?>
-                            <input type="date" class="form-control" name="fecha" id="fecha" required
-                                value="<?= date("Y-m-d"); ?>" min="<?= date("Y-m-d"); ?>" max="<?= $fecha_maxima ?>">
+                            <input type="date" class="form-control" name="fecha" id="fecha" required value="<?= date("Y-m-d"); ?>" min="<?= date("Y-m-d"); ?>" max="<?= $fecha_maxima ?>">
                             <small>Las reservas se podrán realizar con un máximo de dos semanas de
                                 antelación</small>
                         </div>
+                        <label class="form-label"><i class="fa-solid fa-clock"></i> Horario</label>
                         <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>Hora</th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                    <th><i class="fa-solid fa-clock"></i></th>
-                                </tr>
-                            </thead>
                             <tbody>
-                                <tr>
-                                    <?php
-                                    // Llenamos la tabla con la situación de las reservas para la pista y fecha seleccionadas
-                                    $db = new Database;
-                                    $reservation = new Reservation($db->getConnection());
-                                    $reservas = $reservation->getByFechaPista(date("Y-m-d"), 1);
-
-                                    $celdas = 1;
-                                    foreach ($reservas as $key => $value) {
-                                        // Hacemos filas de 6 para que se adapte al diseño
-                                        if ($celdas > 6) {
-                                            echo '</tr>';
-                                            $celdas = 1;
-                                        }
-                                        if ($value['id_reserva'] != null)
-                                            $clase = 'reservado';
-                                        else
-                                            $clase = 'disponible';
-                                        echo '<td class="' . $clase . '" id="' . $value['id'] . '">' . $value['hora'] . '</td>';
-                                        $celdas++;
-                                    }
-                                    ?>
+                                <tr id="seleccion">
+                                    <!-- Zona de seleción de horarios -->
+                                    <!-- Se rellena mediante AJAX -->
                                 </tr>
                             </tbody>
                         </table>
+                        <div id="leyenda">
+                            <div id="cuadro-disponible"></div><small>Disponible</small>
+                            <div id="cuadro-seleccionado"></div><small>Seleccionado</small>
+                            <div id="cuadro-incompleto"></div><small>Incompleto</small>
+                            <div id="cuadro-completo"></div><small>Completo</small>
+                        </div><br>
+                        <div class="form-group">
+                            <label for="id_pista" class="form-label"><i class="fa-solid fa-table-tennis-paddle-ball"></i>
+                                Participantes</label>
+                            <input type="text" class="form-control" name="j1" id="j1" placeholder="Participante 1" required>
+                            <input type="text" class="form-control" name="j2" id="j2" placeholder="Participante 2">
+                            <input type="text" class="form-control" name="j3" id="j3" placeholder="Participante 3">
+                            <input type="text" class="form-control" name="j4" id="j4" placeholder="Participante 4">
+                            <small>Introduce al menos un participante para efectuar la reserva</small>
+                        </div>
                         <!-- Mostramos el mensaje de error, si lo hubiera -->
                         <div class="form-group">
                             <p class='error-text'>
                                 <?php echo $msg; ?>
                             </p>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group text-center">
                             <button type="submit" value="Reservar" class="btn btn-danger">Reservar</button>
                         </div>
                     </form>
@@ -164,8 +157,45 @@ if (isset($_POST["id_pista"]) && isset($_POST["fecha"]) && isset($_POST["horas"]
         </div>
     </section>
 
+    <!-- Modal para añadir participantes a una reserva -->
+    <div class="modal fade" id="participantesModal" tabindex="-1" role="dialog" aria-labelledby="participantesLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="participantesLabel">Añadir participantes</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <label class="form-label"><i class="fa-solid fa-table-tennis-paddle-ball"></i>
+                        Participantes</label>
+                    <input type="text" class="form-control" id="p1" placeholder="Participante 1" required>
+                    <input type="text" class="form-control" id="p2" placeholder="Participante 2">
+                    <input type="text" class="form-control" id="p3" placeholder="Participante 3">
+                    <input type="text" class="form-control" id="p4" placeholder="Participante 4">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <a href="" class="btn btn-danger" id="confirmar">Añadir</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Reservas del usuario -->
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 mx-auto">
+                    <h2 class="section-title">Tus reservas</h2>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!--Pie de página-->
-    <footer class="footer fixed-bottom">
+    <footer class="footer">
         <div class="container">
             <div class="row">
                 <div class="col text-center">
