@@ -26,6 +26,18 @@ class Reservation
         $stm->execute();
     }
 
+    // Añadir participantes
+    public function anhadirJugadores($id_reserva, $j1, $j2, $j3, $j4)
+    {
+        $stm = $this->dbconn->prepare("UPDATE reservas SET j1=:j1, j2=:j2, j3=:j3, j4=:j4 WHERE id=:id");
+        $stm->bindValue(":j1", $j1 == null ? "" : $j1);
+        $stm->bindValue(":j2", $j2 == null ? "" : $j2);
+        $stm->bindValue(":j3", $j3 == null ? "" : $j3);
+        $stm->bindValue(":j4", $j4 == null ? "" : $j4);
+        $stm->bindValue(":id", $id_reserva);
+        $stm->execute();
+    }
+
     // Eliminar reserva
     public function deleteById($id_reserva)
     {
@@ -60,4 +72,24 @@ class Reservation
         // Devolver resultados de la consulta
         return $stm->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    // Obtiene las reservas por id de usuario
+    // Sólo aquellas cuya fecha sea igual o posterior a la fecha actual
+    public function getReservasByIdUsuario($id_usuario)
+    {
+        $query = "SELECT reservas.*, horas.hora AS hora, pistas.nombre AS pista
+                FROM reservas
+                INNER JOIN horas ON reservas.id_hora = horas.id
+                INNER JOIN pistas ON reservas.id_pista = pistas.id 
+                WHERE reservas.id_usuario=:id_usuario AND reservas.fecha >= '" . date('Y-m-d') . "'
+                ORDER BY reservas.fecha ASC, reservas.id_hora ASC";
+        $stm = $this->dbconn->prepare($query);
+        $stm->bindParam(':id_usuario', $id_usuario);
+        $stm->execute();
+
+        // Devolver resultados de la consulta
+        return $stm->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+
 }

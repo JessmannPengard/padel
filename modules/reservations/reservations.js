@@ -12,6 +12,8 @@ window.onload = () => {
                         $(this).removeClass('seleccionado');
                         $(this).addClass('disponible');
                     } else {
+                        // Añadimos el id de reserva al botón confirmar del modal
+                        $('#confirmar').attr('data-id-reserva', $(this).attr('data-id-reserva'));
                         // Añadir participantes al modal
                         obtenerDatosAPIJugadores($(this).attr('data-id-reserva'));
                     }
@@ -98,17 +100,53 @@ window.onload = () => {
         var datos = {
             id_reserva: id_reserva
         };
-        console.log(datos);
         $.post('reservations.api.php', datos, function (respuesta) {
             // La función de devolución de llamada maneja la respuesta del servidor
-            console.log(respuesta);
             pintarJugadores(respuesta);
         }, 'json');
     }
 
+    // Pintamos los jugadores inscritos en el modal y
+    // deshabilitamos los input que ya tengan algún jugador inscrito
     function pintarJugadores(datos) {
-        console.log("Pintar participantes: " + datos);
+        if (datos[0]['j1'] != '') {
+            $('#p1').prop("disabled", true);
+            $('#p1').val(datos[0]['j1']);
+        }
+        if (datos[0]['j2'] != '') {
+            $('#p2').prop("disabled", true);
+            $('#p2').val(datos[0]['j2']);
+        }
+        if (datos[0]['j3'] != '') {
+            $('#p3').prop("disabled", true);
+            $('#p3').val(datos[0]['j3']);
+        }
+        if (datos[0]['j4'] != '') {
+            $('#p4').prop("disabled", true);
+            $('#p4').val(datos[0]['j4']);
+        }
     }
+
+    // Evento click de confirmar en el modal para añadir jugadores
+    $('#confirmar').click(function (e) {
+        var id_reserva = $("#confirmar").attr('data-id-reserva');
+        var j1 = $('#p1').val();
+        var j2 = $('#p2').val();
+        var j3 = $('#p3').val();
+        var j4 = $('#p4').val();
+        var datos = {
+            id_reserva: id_reserva,
+            j1: j1,
+            j2: j2,
+            j3: j3,
+            j4: j4
+        };
+        console.log(datos);
+        $.post('reservations.api.php', datos, function (respuesta) {
+            // La función de devolución de llamada maneja la respuesta del servidor
+            location = location;
+        }, 'json');
+    });
 
     // Llamar por primera vez al cargar la página
     obtenerDatosAPI($('#fecha').val(), $('#id_pista').val());

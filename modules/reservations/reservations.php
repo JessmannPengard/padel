@@ -89,9 +89,11 @@ if (isset($_POST["id_pista"]) && isset($_POST["fecha"]) && isset($_POST["horas"]
                     <!-- Formulario de inicio de sesión -->
                     <form action="" method="post" id="formulario-reservas">
                         <div class="form-group">
-                            <label for="id_pista" class="form-label"><i class="fa-solid fa-table-tennis-paddle-ball"></i>
+                            <label for="id_pista" class="form-label"><i
+                                    class="fa-solid fa-table-tennis-paddle-ball"></i>
                                 Pista</label>
-                            <select class="form-select" aria-label="Selección de pista" name="id_pista" id="id_pista" autofocus>
+                            <select class="form-select" aria-label="Selección de pista" name="id_pista" id="id_pista"
+                                autofocus>
                                 <?php
                                 // Llenamos el select con las pistas de la base de datos
                                 $db = new Database;
@@ -114,7 +116,8 @@ if (isset($_POST["id_pista"]) && isset($_POST["fecha"]) && isset($_POST["horas"]
                             // Convertimos la fecha a formato ISO para el input type="date"
                             $fecha_maxima = $dos_semanas_despues->format('Y-m-d');
                             ?>
-                            <input type="date" class="form-control" name="fecha" id="fecha" required value="<?= date("Y-m-d"); ?>" min="<?= date("Y-m-d"); ?>" max="<?= $fecha_maxima ?>">
+                            <input type="date" class="form-control" name="fecha" id="fecha" required
+                                value="<?= date("Y-m-d"); ?>" min="<?= date("Y-m-d"); ?>" max="<?= $fecha_maxima ?>">
                             <small>Las reservas se podrán realizar con un máximo de dos semanas de
                                 antelación</small>
                         </div>
@@ -134,9 +137,11 @@ if (isset($_POST["id_pista"]) && isset($_POST["fecha"]) && isset($_POST["horas"]
                             <div id="cuadro-completo"></div><small>Completo</small>
                         </div><br>
                         <div class="form-group">
-                            <label for="id_pista" class="form-label"><i class="fa-solid fa-table-tennis-paddle-ball"></i>
+                            <label for="id_pista" class="form-label"><i
+                                    class="fa-solid fa-table-tennis-paddle-ball"></i>
                                 Participantes</label>
-                            <input type="text" class="form-control" name="j1" id="j1" placeholder="Participante 1" required>
+                            <input type="text" class="form-control" name="j1" id="j1" placeholder="Participante 1"
+                                required>
                             <input type="text" class="form-control" name="j2" id="j2" placeholder="Participante 2">
                             <input type="text" class="form-control" name="j3" id="j3" placeholder="Participante 3">
                             <input type="text" class="form-control" name="j4" id="j4" placeholder="Participante 4">
@@ -158,7 +163,8 @@ if (isset($_POST["id_pista"]) && isset($_POST["fecha"]) && isset($_POST["horas"]
     </section>
 
     <!-- Modal para añadir participantes a una reserva -->
-    <div class="modal fade" id="participantesModal" tabindex="-1" role="dialog" aria-labelledby="participantesLabel" aria-hidden="true">
+    <div class="modal fade" id="participantesModal" tabindex="-1" role="dialog" aria-labelledby="participantesLabel"
+        aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -177,7 +183,7 @@ if (isset($_POST["id_pista"]) && isset($_POST["fecha"]) && isset($_POST["horas"]
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <a href="" class="btn btn-danger" id="confirmar">Añadir</a>
+                    <a href="" class="btn btn-danger" id="confirmar" data-id-reserva="">Añadir</a>
                 </div>
             </div>
         </div>
@@ -189,6 +195,44 @@ if (isset($_POST["id_pista"]) && isset($_POST["fecha"]) && isset($_POST["horas"]
             <div class="row">
                 <div class="col-md-6 mx-auto">
                     <h2 class="section-title">Tus reservas</h2>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    #
+                                </th>
+                                <th>
+                                    fecha
+                                </th>
+                                <th>
+                                    hora
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody id="reservas-usuario">
+                            <!-- Reservas del usuario -->
+                            <?php
+
+                            $db = new Database;
+                            $reserva = new Reservation($db->getConnection());
+                            $usuario = new User($db->getConnection());
+                            $id_usuario = $usuario->getId($_SESSION["num_socio"]);
+
+                            $reservas = $reserva->getReservasByIdUsuario($id_usuario);
+
+                            foreach ($reservas as $key => $value) {
+                                echo "<tr>";
+                                echo "<td>" . $value["id"] . "</td>";
+                                echo "<td>" . $value["fecha"] . "</td>";
+                                echo "<td>" . $value["pista"] . "</td>";
+                                echo "<td>" . $value["hora"] . "</td>";
+                                echo "<td><i class='fa-solid fa-circle-xmark'></i></td>";
+                                echo "</tr>";
+                            }
+
+                            ?>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

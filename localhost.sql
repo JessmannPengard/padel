@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 14-03-2023 a las 03:44:22
+-- Tiempo de generación: 15-03-2023 a las 11:40:21
 -- Versión del servidor: 10.4.27-MariaDB
 -- Versión de PHP: 8.1.12
 
@@ -18,10 +18,10 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `padelPro`
+-- Base de datos: `padelpro`
 --
-CREATE DATABASE IF NOT EXISTS `padelPro` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci;
-USE `padelPro`;
+CREATE DATABASE IF NOT EXISTS `padelpro` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci;
+USE `padelpro`;
 
 -- --------------------------------------------------------
 
@@ -84,19 +84,23 @@ CREATE TABLE `reservas` (
   `id_usuario` int(11) NOT NULL,
   `id_pista` int(11) NOT NULL,
   `id_hora` int(11) NOT NULL,
-  `fecha` date NOT NULL
+  `fecha` date NOT NULL,
+  `j1` varchar(255) NOT NULL,
+  `j2` varchar(255) NOT NULL,
+  `j3` varchar(255) NOT NULL,
+  `j4` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
 
 --
 -- Volcado de datos para la tabla `reservas`
 --
 
-INSERT INTO `reservas` (`id`, `id_usuario`, `id_pista`, `id_hora`, `fecha`) VALUES
-(8, 0, 1, 2, '2023-03-14'),
-(9, 0, 1, 3, '2023-03-14'),
-(10, 0, 3, 1, '2023-03-14'),
-(11, 0, 3, 9, '2023-03-14'),
-(12, 0, 3, 10, '2023-03-14');
+INSERT INTO `reservas` (`id`, `id_usuario`, `id_pista`, `id_hora`, `fecha`, `j1`, `j2`, `j3`, `j4`) VALUES
+(8, 0, 1, 2, '2023-03-14', '', '', '', ''),
+(9, 0, 1, 3, '2023-03-14', '', '', '', ''),
+(10, 0, 3, 1, '2023-03-14', '', '', '', ''),
+(11, 0, 3, 9, '2023-03-14', '', '', '', ''),
+(12, 0, 3, 10, '2023-03-14', '', '', '', '');
 
 -- --------------------------------------------------------
 
