@@ -49,6 +49,7 @@ if (isset($_POST["num_socio"])) {
     <link rel="stylesheet" href="../../vendor/css/bootstrap.min.css">
     <script src="../../vendor/js/bootstrap.bundle.min.js"></script>
     <!-- Mis estilos -->
+    <link rel="stylesheet" href="../../css/style.css">
     <link rel="stylesheet" href="user.css">
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="../../favicon.png">
@@ -59,30 +60,37 @@ if (isset($_POST["num_socio"])) {
 </head>
 
 <body>
-    <!-- Encabezado de página -->
+    <!-- Header -->
+    <header>
+        <nav class="navbar navbar-expand-xxxl">
+            <!-- Logo -->
+            <div class="d-flex">
+                <a class="navbar-brand" href="../../index.php">
+                    <img src="../../img/logo.jpg" alt="logo" id="logo">
+                </a>
+            </div>
+        </nav>
+    </header>
 
     <!-- Contenido de la página -->
     <div class="container">
         <div class="row">
             <div class="col-md-6 mx-auto">
                 <!-- Título del formulario -->
-                <h2>Crear cuenta</h2>
+                <h2 class="section-title">Crear cuenta</h2>
                 <!-- Formulario de registro -->
                 <form action="" method="post" class="login-form" id="registerForm">
                     <div class="form-group">
                         <label for="num_socio" class="form-label ">Número de socio</label>
-                        <input type="text" name="num_socio" class="form-control" required
-                            placeholder="Introduce tu número de socio" autofocus>
+                        <input type="text" name="num_socio" class="form-control" required placeholder="Introduce tu número de socio" autofocus>
                     </div>
                     <div class="form-group">
                         <label for="nombre" class="form-label ">Nombre</label>
-                        <input type="text" name="nombre" class="form-control" required
-                            placeholder="Introduce tu nombre">
+                        <input type="text" name="nombre" class="form-control" required placeholder="Introduce tu nombre">
                     </div>
                     <div class="form-group">
                         <label for="telefono" class="form-label ">Teléfono</label>
-                        <input type="text" name="telefono" class="form-control" required
-                            placeholder="Introduce tu número de teléfono">
+                        <input type="text" name="telefono" class="form-control" required placeholder="Introduce tu número de teléfono">
                     </div>
                     <div class="form-group">
                         <label for="email" class="form-label ">Email</label>
@@ -90,13 +98,11 @@ if (isset($_POST["num_socio"])) {
                     </div>
                     <div class="form-group">
                         <label for="password" class="form-label">Password</label>
-                        <input type="password" name="password" id="password" class="form-control" required
-                            placeholder="Password">
+                        <input type="password" name="password" id="password" class="form-control" required placeholder="Password">
                     </div>
                     <div class="form-group">
                         <label for="c_password" class="form-label">Repetir password</label>
-                        <input type="password" name="c_password" id="c-password" class="form-control" required
-                            placeholder="Repetir password">
+                        <input type="password" name="c_password" id="c-password" class="form-control" required placeholder="Repetir password">
                     </div>
                     <!-- Mostramos el mensaje de error, si lo hubiera -->
                     <div class="form-group">
@@ -105,7 +111,7 @@ if (isset($_POST["num_socio"])) {
                         </p>
                     </div>
                     <div class="form-group">
-                        <button type="submit" value="Login" class="btn btn-primary">Registrarse</button>
+                        <button type="submit" value="Login" class="btn btn-danger">Registrarse</button>
                     </div>
                     <!-- Enlace a la página de inicio de sesión -->
                     <div class="form-group">
@@ -122,9 +128,9 @@ if (isset($_POST["num_socio"])) {
 
     <script>
         // Comprobamos que el cambo Repetir password coincida con el campo Password
-        window.onload = function () {
+        window.onload = function() {
             let form = document.getElementById("registerForm");
-            form.onsubmit = function (e) {
+            form.onsubmit = function(e) {
                 let passw = document.getElementById("password").value;
                 let cpassw = document.getElementById("c-password").value;
                 if (passw != cpassw) {

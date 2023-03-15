@@ -102,3 +102,11 @@ small {
     background-color: #1E1D1B;
     color: white;
 }
+
+.valores-reserva {
+    font-weight: lighter;
+}
+
+.eliminar-reserva {
+    color: red;
+}

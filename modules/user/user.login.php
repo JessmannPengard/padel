@@ -48,6 +48,7 @@ if (isset($_POST["num_socio"])) {
     <link rel="stylesheet" href="../../vendor/css/bootstrap.min.css">
     <script src="../../vendor/js/bootstrap.bundle.min.js"></script>
     <!-- Mis estilos -->
+    <link rel="stylesheet" href="../../css/style.css">
     <link rel="stylesheet" href="user.css">
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="../../favicon.png">
@@ -58,7 +59,17 @@ if (isset($_POST["num_socio"])) {
 </head>
 
 <body>
-    <!-- Encabezado de página -->
+    <!-- Header -->
+    <header>
+        <nav class="navbar navbar-expand-xxxl">
+            <!-- Logo -->
+            <div class="d-flex">
+                <a class="navbar-brand" href="../../index.php">
+                    <img src="../../img/logo.jpg" alt="logo" id="logo">
+                </a>
+            </div>
+        </nav>
+    </header>
 
     <!-- Contenido de la página -->
     <section>
@@ -71,8 +82,7 @@ if (isset($_POST["num_socio"])) {
                     <form action="" method="post">
                         <div class="form-group">
                             <label for="num_socio" class="form-label">Número de socio</label>
-                            <input type="text" class="form-control" name="num_socio"
-                                placeholder="Introduce tu número de socio" required autofocus>
+                            <input type="text" class="form-control" name="num_socio" placeholder="Introduce tu número de socio" required autofocus>
                         </div>
                         <div class="form-group">
                             <label for="password" class="form-label">Password</label>
@@ -85,12 +95,11 @@ if (isset($_POST["num_socio"])) {
                             </p>
                         </div>
                         <div class="form-group">
-                            <button type="submit" value="Login" class="btn btn-primary">Login</button>
+                            <button type="submit" value="Login" class="btn btn-danger">Login</button>
                         </div>
                         <!-- Enlace a la página de registro -->
                         <div class="form-group">
-                            <span class="form-text">¿Aún no tienes una cuenta?</span><a href="user.register.php"
-                                class="form-link">
+                            <span class="form-text">¿Aún no tienes una cuenta?</span><a href="user.register.php" class="form-link">
                                 Regístrate aquí</a>
                         </div>
                     </form>

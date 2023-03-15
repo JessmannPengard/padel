@@ -1,4 +1,29 @@
+.navbar {
+    background-color: #1E1D1B;
+    opacity: 0.9;
+    height: 80px;
+    justify-content: center;
+    margin-bottom: 40px;
+}
+
+#logo {
+    height: 60px;
+}
+
 /* Mensaje de error */
 .error-text {
+    color: #C64E52;
+}
+
+.form-label {
+    color: white;
+}
+
+.form-text {
+    color: white;
+}
+
+a {
+    text-decoration: none;
     color: #C64E52;
 }

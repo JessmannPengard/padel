@@ -1,7 +1,7 @@
 window.onload = () => {
 
+    // Lógica para marcar o desmarcar las horas
     function agregarEventoClick() {
-        // Lógica para marcar o desmarcar las horas
         $('td').click(function () {
             if (!$(this).hasClass('reservado')) {
                 if ($(this).hasClass('disponible')) {
@@ -19,6 +19,14 @@ window.onload = () => {
                     }
                 }
             }
+        });
+    }
+
+    // Lógica para controlar los botones de borrar reserva
+    function agregarEventoClickBorrar() {
+        $('.eliminar-reserva').click(function () {
+            // Añadimos el id de reserva al botón borrar del modal
+            $('#confirmar-borrado').attr('data-id-reserva', $(this).attr('data-id-reserva'));
         });
     }
 
@@ -141,7 +149,20 @@ window.onload = () => {
             j3: j3,
             j4: j4
         };
-        console.log(datos);
+        $.post('reservations.api.php', datos, function (respuesta) {
+            // La función de devolución de llamada maneja la respuesta del servidor
+            location = location;
+        }, 'json');
+    });
+
+    // Evento click de confirmar en el modal para borrar reserva
+    $('#confirmar-borrado').click(function (e) {
+        var id_reserva = $("#confirmar-borrado").attr('data-id-reserva');
+        var accion = "borrar";
+        var datos = {
+            id_reserva: id_reserva,
+            accion: accion
+        };
         $.post('reservations.api.php', datos, function (respuesta) {
             // La función de devolución de llamada maneja la respuesta del servidor
             location = location;
@@ -150,5 +171,8 @@ window.onload = () => {
 
     // Llamar por primera vez al cargar la página
     obtenerDatosAPI($('#fecha').val(), $('#id_pista').val());
+
+    // Agregar evento click a los botones de borrar reserva
+    agregarEventoClickBorrar();
 
 }

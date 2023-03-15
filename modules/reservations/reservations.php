@@ -89,11 +89,9 @@ if (isset($_POST["id_pista"]) && isset($_POST["fecha"]) && isset($_POST["horas"]
                     <!-- Formulario de inicio de sesión -->
                     <form action="" method="post" id="formulario-reservas">
                         <div class="form-group">
-                            <label for="id_pista" class="form-label"><i
-                                    class="fa-solid fa-table-tennis-paddle-ball"></i>
+                            <label for="id_pista" class="form-label"><i class="fa-solid fa-table-tennis-paddle-ball"></i>
                                 Pista</label>
-                            <select class="form-select" aria-label="Selección de pista" name="id_pista" id="id_pista"
-                                autofocus>
+                            <select class="form-select" aria-label="Selección de pista" name="id_pista" id="id_pista" autofocus>
                                 <?php
                                 // Llenamos el select con las pistas de la base de datos
                                 $db = new Database;
@@ -116,8 +114,7 @@ if (isset($_POST["id_pista"]) && isset($_POST["fecha"]) && isset($_POST["horas"]
                             // Convertimos la fecha a formato ISO para el input type="date"
                             $fecha_maxima = $dos_semanas_despues->format('Y-m-d');
                             ?>
-                            <input type="date" class="form-control" name="fecha" id="fecha" required
-                                value="<?= date("Y-m-d"); ?>" min="<?= date("Y-m-d"); ?>" max="<?= $fecha_maxima ?>">
+                            <input type="date" class="form-control" name="fecha" id="fecha" required value="<?= date("Y-m-d"); ?>" min="<?= date("Y-m-d"); ?>" max="<?= $fecha_maxima ?>">
                             <small>Las reservas se podrán realizar con un máximo de dos semanas de
                                 antelación</small>
                         </div>
@@ -137,11 +134,9 @@ if (isset($_POST["id_pista"]) && isset($_POST["fecha"]) && isset($_POST["horas"]
                             <div id="cuadro-completo"></div><small>Completo</small>
                         </div><br>
                         <div class="form-group">
-                            <label for="id_pista" class="form-label"><i
-                                    class="fa-solid fa-table-tennis-paddle-ball"></i>
+                            <label for="id_pista" class="form-label"><i class="fa-solid fa-table-tennis-paddle-ball"></i>
                                 Participantes</label>
-                            <input type="text" class="form-control" name="j1" id="j1" placeholder="Participante 1"
-                                required>
+                            <input type="text" class="form-control" name="j1" id="j1" placeholder="Participante 1" required>
                             <input type="text" class="form-control" name="j2" id="j2" placeholder="Participante 2">
                             <input type="text" class="form-control" name="j3" id="j3" placeholder="Participante 3">
                             <input type="text" class="form-control" name="j4" id="j4" placeholder="Participante 4">
@@ -163,8 +158,7 @@ if (isset($_POST["id_pista"]) && isset($_POST["fecha"]) && isset($_POST["horas"]
     </section>
 
     <!-- Modal para añadir participantes a una reserva -->
-    <div class="modal fade" id="participantesModal" tabindex="-1" role="dialog" aria-labelledby="participantesLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="participantesModal" tabindex="-1" role="dialog" aria-labelledby="participantesLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -189,6 +183,8 @@ if (isset($_POST["id_pista"]) && isset($_POST["fecha"]) && isset($_POST["horas"]
         </div>
     </div>
 
+    <br>
+    <br>
     <!-- Reservas del usuario -->
     <section>
         <div class="container">
@@ -205,7 +201,13 @@ if (isset($_POST["id_pista"]) && isset($_POST["fecha"]) && isset($_POST["horas"]
                                     fecha
                                 </th>
                                 <th>
+                                    pista
+                                </th>
+                                <th>
                                     hora
+                                </th>
+                                <th>
+                                    <i class="fa-solid fa-gear"></i>
                                 </th>
                             </tr>
                         </thead>
@@ -222,11 +224,11 @@ if (isset($_POST["id_pista"]) && isset($_POST["fecha"]) && isset($_POST["horas"]
 
                             foreach ($reservas as $key => $value) {
                                 echo "<tr>";
-                                echo "<td>" . $value["id"] . "</td>";
-                                echo "<td>" . $value["fecha"] . "</td>";
-                                echo "<td>" . $value["pista"] . "</td>";
-                                echo "<td>" . $value["hora"] . "</td>";
-                                echo "<td><i class='fa-solid fa-circle-xmark'></i></td>";
+                                echo "<th class='valores-reserva'>" . $value["id"] . "</th>";
+                                echo "<th class='valores-reserva'>" . $value["fecha"] . "</th>";
+                                echo "<th class='valores-reserva'>" . $value["pista"] . "</th>";
+                                echo "<th class='valores-reserva'>" . $value["hora"] . "</th>";
+                                echo "<th><a href='' class='eliminar-reserva' data-toggle='modal' data-target='#borrarModal' data-id-reserva='" . $value["id"] . "'><i class='fa-solid fa-circle-xmark'></i></a></td>";
                                 echo "</tr>";
                             }
 
@@ -237,6 +239,28 @@ if (isset($_POST["id_pista"]) && isset($_POST["fecha"]) && isset($_POST["horas"]
             </div>
         </div>
     </section>
+
+    <!-- Modal para borrar reserva -->
+    <div class="modal fade" id="borrarModal" tabindex="-1" role="dialog" aria-labelledby="borrarLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="borrarLabel">Cancelar reserva</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <label class="form-label"><i class="fa-solid fa-calendar"></i>
+                        ¿Estás seguro de que quieres cancelar tu reserva?</label>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Volver</button>
+                    <a href type="button" class="btn btn-danger" id="confirmar-borrado" data-id-reserva="">Cancelar Reserva</a>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!--Pie de página-->
     <footer class="footer">
