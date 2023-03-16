@@ -60,7 +60,8 @@ window.onload = () => {
             fecha: fecha,
             id_pista: id_pista
         };
-        $.post('reservations.api.php', datos, function (respuesta) {
+        var url = location.origin + "/padel/modules/reservations/reservations.api.php";
+        $.post(url, datos, function (respuesta) {
             // La función de devolución de llamada maneja la respuesta del servidor
             pintarHorario(respuesta);
         }, 'json');
@@ -108,7 +109,8 @@ window.onload = () => {
         var datos = {
             id_reserva: id_reserva
         };
-        $.post('reservations.api.php', datos, function (respuesta) {
+        var url = location.origin + "/padel/modules/reservations/reservations.api.php";
+        $.post(url, datos, function (respuesta) {
             // La función de devolución de llamada maneja la respuesta del servidor
             pintarJugadores(respuesta);
         }, 'json');
@@ -120,18 +122,30 @@ window.onload = () => {
         if (datos[0]['j1'] != '') {
             $('#p1').prop("disabled", true);
             $('#p1').val(datos[0]['j1']);
+        } else {
+            $('#p1').prop("disabled", false);
+            $('#p1').val('');
         }
         if (datos[0]['j2'] != '') {
             $('#p2').prop("disabled", true);
             $('#p2').val(datos[0]['j2']);
+        } else {
+            $('#p2').prop("disabled", false);
+            $('#p2').val('');
         }
         if (datos[0]['j3'] != '') {
             $('#p3').prop("disabled", true);
             $('#p3').val(datos[0]['j3']);
+        } else {
+            $('#p3').prop("disabled", false);
+            $('#p3').val('');
         }
         if (datos[0]['j4'] != '') {
             $('#p4').prop("disabled", true);
             $('#p4').val(datos[0]['j4']);
+        } else {
+            $('#p4').prop("disabled", false);
+            $('#p4').val('');
         }
     }
 
@@ -149,7 +163,8 @@ window.onload = () => {
             j3: j3,
             j4: j4
         };
-        $.post('reservations.api.php', datos, function (respuesta) {
+        var url = location.origin + "/padel/modules/reservations/reservations.api.php";
+        $.post(url, datos, function (respuesta) {
             // La función de devolución de llamada maneja la respuesta del servidor
             location = location;
         }, 'json');
@@ -163,7 +178,8 @@ window.onload = () => {
             id_reserva: id_reserva,
             accion: accion
         };
-        $.post('reservations.api.php', datos, function (respuesta) {
+        var url = location.origin + "/padel/modules/reservations/reservations.api.php";
+        $.post(url, datos, function (respuesta) {
             // La función de devolución de llamada maneja la respuesta del servidor
             location = location;
         }, 'json');
