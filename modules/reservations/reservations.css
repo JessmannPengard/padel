@@ -66,6 +66,7 @@ td a {
 }
 
 small {
+    font-size: 10px;
     color: white;
 }
 
@@ -77,25 +78,25 @@ small {
 #cuadro-disponible {
     background-color: white;
     height: 20px;
-    width: 40px;
+    width: 30px;
 }
 
 #cuadro-seleccionado {
     background-color: lightgreen;
     height: 20px;
-    width: 40px;
+    width: 30px;
 }
 
 #cuadro-incompleto {
     background-color: lightcoral;
     height: 20px;
-    width: 40px;
+    width: 30px;
 }
 
 #cuadro-completo {
     background-color: red;
     height: 20px;
-    width: 40px;
+    width: 30px;
 }
 
 .modal-content {
@@ -109,4 +110,14 @@ small {
 
 .eliminar-reserva {
     color: red;
+}
+
+.logout{
+    padding-left: 30px;
+    text-decoration: none;
+    color: red;
+}
+
+hr{
+    color: white;
 }

@@ -109,6 +109,22 @@ if (isset($_POST["num_socio"])) {
     </section>
 
     <!--Pie de página-->
+    <footer class="footer">
+        <hr>
+        <div class="container">
+            <div class="row">
+                <div class="col text-center">
+                    <!--Copyright-->
+                    <p>&copy;
+                        <?= date("Y"); ?> Jessmann
+                    </p>
+                    <!--Email-->
+                    <p><a href="mailto: servicios@jessmann.com" class="mail"><i class="fas fa-envelope"></i>
+                            servicios@jessmann.com</a></p>
+                </div>
+            </div>
+        </div>
+    </footer>
 
 
 </body>

@@ -76,6 +76,9 @@ if (isset($_POST["id_pista"]) && isset($_POST["fecha"]) && isset($_POST["horas"]
                     <img src="../../img/logo.jpg" alt="logo" id="logo">
                 </a>
             </div>
+            <a class="logout" href="../../modules/user/user.logout.php">
+                <span>Logout </span><i class="fa-solid fa-right-from-bracket"></i>
+            </a>
         </nav>
     </header>
 
@@ -191,50 +194,54 @@ if (isset($_POST["id_pista"]) && isset($_POST["fecha"]) && isset($_POST["horas"]
             <div class="row">
                 <div class="col-md-6 mx-auto">
                     <h2 class="section-title">Tus reservas</h2>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>
-                                    #
-                                </th>
-                                <th>
-                                    fecha
-                                </th>
-                                <th>
-                                    pista
-                                </th>
-                                <th>
-                                    hora
-                                </th>
-                                <th>
-                                    <i class="fa-solid fa-gear"></i>
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody id="reservas-usuario">
-                            <!-- Reservas del usuario -->
-                            <?php
 
-                            $db = new Database;
-                            $reserva = new Reservation($db->getConnection());
-                            $usuario = new User($db->getConnection());
-                            $id_usuario = $usuario->getId($_SESSION["num_socio"]);
+                    <?php
+                    $db = new Database;
+                    $reserva = new Reservation($db->getConnection());
+                    $usuario = new User($db->getConnection());
+                    $id_usuario = $usuario->getId($_SESSION["num_socio"]);
 
-                            $reservas = $reserva->getReservasByIdUsuario($id_usuario);
+                    $reservas = $reserva->getReservasByIdUsuario($id_usuario);
 
-                            foreach ($reservas as $key => $value) {
-                                echo "<tr>";
-                                echo "<th class='valores-reserva'>" . $value["id"] . "</th>";
-                                echo "<th class='valores-reserva'>" . $value["fecha"] . "</th>";
-                                echo "<th class='valores-reserva'>" . $value["pista"] . "</th>";
-                                echo "<th class='valores-reserva'>" . $value["hora"] . "</th>";
-                                echo "<th><a href='' class='eliminar-reserva' data-toggle='modal' data-target='#borrarModal' data-id-reserva='" . $value["id"] . "'><i class='fa-solid fa-circle-xmark'></i></a></td>";
-                                echo "</tr>";
-                            }
+                    if (count($reservas) > 0) {
+                        echo '<table class="table">';
+                        echo '    <thead>';
+                        echo '        <tr>';
+                        echo '            <th>';
+                        echo '                #';
+                        echo '            </th>';
+                        echo '            <th>';
+                        echo '                fecha';
+                        echo '            </th>';
+                        echo '            <th>';
+                        echo '                pista';
+                        echo '            </th>';
+                        echo '            <th>';
+                        echo '                hora';
+                        echo '            </th>';
+                        echo '            <th>';
+                        echo '                <i class="fa-solid fa-gear"></i>';
+                        echo '            </th>';
+                        echo '        </tr>';
+                        echo '    </thead>';
+                        echo '    <tbody id="reservas-usuario">';
 
-                            ?>
-                        </tbody>
-                    </table>
+                        foreach ($reservas as $key => $value) {
+                            echo "<tr>";
+                            echo "<th class='valores-reserva'>" . $value["id"] . "</th>";
+                            echo "<th class='valores-reserva'>" . $value["fecha"] . "</th>";
+                            echo "<th class='valores-reserva'>" . $value["pista"] . "</th>";
+                            echo "<th class='valores-reserva'>" . $value["hora"] . "</th>";
+                            echo "<th><a href='' class='eliminar-reserva' data-toggle='modal' data-target='#borrarModal' data-id-reserva='" . $value["id"] . "'><i class='fa-solid fa-circle-xmark'></i></a></td>";
+                            echo "</tr>";
+                        }
+                        echo '</tbody>';
+                        echo '</table>';
+                    } else {
+                        echo "<p>No tienes reservas por el momento.</p>";
+                    }
+                    ?>
+
                 </div>
             </div>
         </div>
@@ -264,6 +271,7 @@ if (isset($_POST["id_pista"]) && isset($_POST["fecha"]) && isset($_POST["horas"]
 
     <!--Pie de página-->
     <footer class="footer">
+        <hr>
         <div class="container">
             <div class="row">
                 <div class="col text-center">
