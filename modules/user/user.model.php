@@ -18,7 +18,7 @@ class User
         $pw = md5($password);
 
         // Prepare
-        $stm = $this->dbconn->prepare("SELECT * FROM usuarios WHERE 
+        $stm = $this->dbconn->prepare("SELECT * FROM padel_usuarios WHERE 
                 num_socio=:num_socio AND password=:password");
         $stm->bindValue(":num_socio", $num_socio);
         $stm->bindValue(":password", $pw);
@@ -47,7 +47,7 @@ class User
         $pw = md5($password);
 
         // Prepare
-        $stm = $this->dbconn->prepare("INSERT INTO usuarios (num_socio, nombre, password, telefono, email)
+        $stm = $this->dbconn->prepare("INSERT INTO padel_usuarios (num_socio, nombre, password, telefono, email)
                 VALUES (:num_socio, :nombre, :password, :telefono, :email)");
 
         $stm->bindValue(":num_socio", $num_socio);
@@ -68,7 +68,7 @@ class User
     public function existUser($num_socio)
     {
         // Prepare
-        $stm = $this->dbconn->prepare("SELECT id FROM usuarios WHERE num_socio = :num_socio");
+        $stm = $this->dbconn->prepare("SELECT id FROM padel_usuarios WHERE num_socio = :num_socio");
         $stm->bindValue(":num_socio", $num_socio);
 
         // Execute
@@ -83,7 +83,7 @@ class User
     {
         $num_socio = "";
         // Prepare
-        $stm = $this->dbconn->prepare("SELECT num_socio FROM usuarios WHERE id = :id");
+        $stm = $this->dbconn->prepare("SELECT num_socio FROM padel_usuarios WHERE id = :id");
         $stm->bindValue(":id", $id_usuario);
         $stm->bindColumn("num_socio", $num_socio);
 
@@ -102,7 +102,7 @@ class User
     {
         $id = 0;
         // Prepare
-        $stm = $this->dbconn->prepare("SELECT id FROM usuarios WHERE num_socio = :num_socio");
+        $stm = $this->dbconn->prepare("SELECT id FROM padel_usuarios WHERE num_socio = :num_socio");
         $stm->bindValue(":num_socio", $num_socio);
         $stm->bindColumn("id", $id);
 

@@ -15,7 +15,7 @@ class Hours
     {
         $id = 0;
         // Prepare
-        $stm = $this->dbconn->prepare("SELECT * FROM horas");
+        $stm = $this->dbconn->prepare("SELECT * FROM padel_horas");
         // Execute
         $stm->execute();
 
