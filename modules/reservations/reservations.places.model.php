@@ -15,7 +15,7 @@ class Places
     {
         $id = 0;
         // Prepare
-        $stm = $this->dbconn->prepare("SELECT * FROM padel_pistas ORDER BY id");
+        $stm = $this->dbconn->prepare("SELECT * FROM padel_pistas ORDER BY id ASC");
         // Execute
         $stm->execute();
 
