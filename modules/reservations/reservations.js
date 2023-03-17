@@ -182,9 +182,6 @@ window.onload = () => {
         $('#seleccion').append(html);
     }
 
-
-
-
     // Evento click de confirmar en el modal para borrar reserva
     $('#confirmar-borrado').click(function (e) {
         var id_reserva = $("#confirmar-borrado").attr('data-id-reserva');
