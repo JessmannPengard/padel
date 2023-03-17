@@ -42,6 +42,17 @@ td a {
     text-decoration: none;
 }
 
+.tit-pista{
+    color: white;
+    border: 1px solid white;
+}
+
+.btn-celda{
+    opacity: .8;
+    padding: 0;
+    text-align: center;
+}
+
 .reservado {
     background-color: red !important;
 }

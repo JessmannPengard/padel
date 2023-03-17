@@ -13,10 +13,9 @@ if (!isset($_SESSION["num_socio"])) {
 
 $msg = "";
 
-if (isset($_POST["id_pista"]) && isset($_POST["fecha"]) && isset($_POST["horas"])) {
+if (isset($_POST["fecha"]) && isset($_POST["horas"])) {
     $horas = json_decode($_POST["horas"], true);
     if (count($horas) > 0) {
-        $id_pista = $_POST["id_pista"];
         $fecha = $_POST["fecha"];
         $j1 = $_POST["j1"];
         $j2 = $_POST["j2"];
@@ -28,7 +27,8 @@ if (isset($_POST["id_pista"]) && isset($_POST["fecha"]) && isset($_POST["horas"]
         $id_usuario = $usuario->getId($_SESSION["num_socio"]);
         $reservation = new Reservation($db->getConnection());
         foreach ($horas as $key => $value) {
-            $reservation->reservar($id_usuario, $id_pista, $value, $fecha, $j1, $j2, $j3, $j4);
+            $hora_pista =  explode("/", $value);
+            $reservation->reservar($id_usuario, $hora_pista[1], $hora_pista[0], $fecha, $j1, $j2, $j3, $j4);
             header("Location: reservations.php");
         }
     } else {
@@ -91,22 +91,6 @@ if (isset($_POST["id_pista"]) && isset($_POST["fecha"]) && isset($_POST["horas"]
                     <h2 class="section-title">Reservas</h2>
                     <!-- Formulario de inicio de sesión -->
                     <form action="" method="post" id="formulario-reservas">
-                        <div class="form-group">
-                            <label for="id_pista" class="form-label"><i class="fa-solid fa-table-tennis-paddle-ball"></i>
-                                Pista</label>
-                            <select class="form-select" aria-label="Selección de pista" name="id_pista" id="id_pista" autofocus>
-                                <?php
-                                // Llenamos el select con las pistas de la base de datos
-                                $db = new Database;
-                                $pista = new Places($db->getConnection());
-                                $pistas = $pista->getAll();
-
-                                foreach ($pistas as $key => $value) {
-                                    echo '<option value="' . $value["id"] . '">' . $value["nombre"] . '</option>';
-                                }
-                                ?>
-                            </select>
-                        </div>
                         <div class="form-group">
                             <label for="fecha" class="form-label"><i class="fa-solid fa-calendar"></i> Fecha</label>
                             <?php
@@ -180,7 +164,7 @@ if (isset($_POST["id_pista"]) && isset($_POST["fecha"]) && isset($_POST["horas"]
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <a href="" class="btn btn-danger" id="confirmar" data-id-reserva="">Añadir</a>
+                    <a href="" onclick="anhadirJugadores()" class="btn btn-danger" id="confirmar" data-id-reserva="">Añadir</a>
                 </div>
             </div>
         </div>
