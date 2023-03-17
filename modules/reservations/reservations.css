@@ -45,6 +45,11 @@ td a {
 .tit-pista{
     color: white;
     border: 1px solid white;
+    text-align: center;
+}
+
+.pic-pista{
+    width: 40px;
 }
 
 .btn-celda{

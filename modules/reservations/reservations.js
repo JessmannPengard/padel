@@ -160,7 +160,7 @@ window.onload = () => {
     // Pintar el horario según los datos obtenidos de la API
     function pintarHorario(datos, pista) {
         var clase = "";
-        var html = "<tr><td class='tit-pista'>" + pista['nombre'] + "</td>";
+        var html = "<tr><td class='tit-pista'>" + pista['nombre'] + "<img class='pic-pista' src='"+pista['url_imagen']+"'></img></td>";
 
         datos.forEach(element => {
             if (element['id_reserva'] != null) {
