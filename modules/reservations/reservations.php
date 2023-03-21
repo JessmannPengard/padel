@@ -17,6 +17,7 @@ if (isset($_POST["fecha"]) && isset($_POST["horas"])) {
     $horas = json_decode($_POST["horas"], true);
     if (count($horas) > 0) {
         $fecha = $_POST["fecha"];
+        $_SESSION["fecha"] = $fecha;
         $j1 = $_POST["j1"];
         $j2 = $_POST["j2"];
         $j3 = $_POST["j3"];
@@ -94,6 +95,11 @@ if (isset($_POST["fecha"]) && isset($_POST["horas"])) {
                         <div class="form-group">
                             <label for="fecha" class="form-label"><i class="fa-solid fa-calendar"></i> Fecha</label>
                             <?php
+                            if (isset($_SESSION["fecha"])) {
+                                $fecha = $_SESSION["fecha"];
+                            } else {
+                                $fecha = date("Y-m-d");
+                            }
                             // Obtenemos la fecha actual
                             $hoy = new DateTime();
                             // Agregamos dos semanas a la fecha actual
@@ -101,7 +107,7 @@ if (isset($_POST["fecha"]) && isset($_POST["horas"])) {
                             // Convertimos la fecha a formato ISO para el input type="date"
                             $fecha_maxima = $dos_semanas_despues->format('Y-m-d');
                             ?>
-                            <input type="date" class="form-control" name="fecha" id="fecha" required value="<?= date("Y-m-d"); ?>" min="<?= date("Y-m-d"); ?>" max="<?= $fecha_maxima ?>">
+                            <input type="date" class="form-control" name="fecha" id="fecha" required value="<?= $fecha; ?>" min="<?= date("Y-m-d"); ?>" max="<?= $fecha_maxima ?>">
                             <small>Las reservas se podrán realizar con un máximo de dos semanas de
                                 antelación</small>
                         </div>
